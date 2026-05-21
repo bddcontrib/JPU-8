@@ -186,10 +186,6 @@
     <comp lib="0" loc="(70,40)" name="Clock">
       <a name="appearance" val="NewPins"/>
     </comp>
-    <comp lib="0" loc="(70,90)" name="Tunnel">
-      <a name="facing" val="east"/>
-      <a name="label" val="Reset"/>
-    </comp>
     <comp lib="0" loc="(710,460)" name="Tunnel">
       <a name="facing" val="east"/>
       <a name="label" val="D_BUS"/>
@@ -278,14 +274,6 @@
       <a name="facing" val="north"/>
       <a name="label" val="Reset"/>
     </comp>
-    <comp lib="0" loc="(80,170)" name="Tunnel">
-      <a name="facing" val="east"/>
-      <a name="label" val="CLK"/>
-    </comp>
-    <comp lib="0" loc="(80,200)" name="Constant">
-      <a name="value" val="0x0"/>
-      <a name="width" val="2"/>
-    </comp>
     <comp lib="0" loc="(800,110)" name="Tunnel">
       <a name="label" val="D_W"/>
       <a name="labelfont" val="SansSerif bold 10"/>
@@ -338,7 +326,6 @@
       <a name="label" val="A_W"/>
       <a name="labelfont" val="SansSerif bold 10"/>
     </comp>
-    <comp lib="0" loc="(90,120)" name="Constant"/>
     <comp lib="1" loc="(1170,470)" name="Controlled Buffer">
       <a name="width" val="8"/>
     </comp>
@@ -389,11 +376,6 @@
       <a name="appearance" val="logisim_evolution"/>
       <a name="trigger" val="high"/>
     </comp>
-    <comp lib="4" loc="(90,90)" name="Counter">
-      <a name="appearance" val="logisim_evolution"/>
-      <a name="max" val="0x3"/>
-      <a name="width" val="2"/>
-    </comp>
     <comp lib="5" loc="(1020,940)" name="7-Segment Display"/>
     <comp lib="5" loc="(900,940)" name="7-Segment Display"/>
     <comp lib="5" loc="(960,940)" name="7-Segment Display"/>
@@ -424,7 +406,7 @@
     <comp lib="8" loc="(805,50)" name="Text">
       <a name="text" val="Skriv (bus -&gt; register)"/>
     </comp>
-    <comp lib="8" loc="(932,868)" name="Text">
+    <comp lib="8" loc="(930,865)" name="Text">
       <a name="text" val="Expansion Port"/>
     </comp>
     <comp lib="9" loc="(1020,940)" name="BCD_to_7_Segment_decoder"/>
@@ -476,7 +458,6 @@
     <wire from="(1250,980)" to="(1250,990)"/>
     <wire from="(1260,970)" to="(1270,970)"/>
     <wire from="(70,40)" to="(100,40)"/>
-    <wire from="(70,90)" to="(80,90)"/>
     <wire from="(710,460)" to="(720,460)"/>
     <wire from="(710,490)" to="(730,490)"/>
     <wire from="(710,520)" to="(720,520)"/>
@@ -527,10 +508,6 @@
     <wire from="(790,690)" to="(810,690)"/>
     <wire from="(790,80)" to="(850,80)"/>
     <wire from="(790,90)" to="(800,90)"/>
-    <wire from="(80,110)" to="(90,110)"/>
-    <wire from="(80,170)" to="(90,170)"/>
-    <wire from="(80,200)" to="(90,200)"/>
-    <wire from="(80,90)" to="(80,110)"/>
     <wire from="(800,990)" to="(840,990)"/>
     <wire from="(820,1250)" to="(840,1250)"/>
     <wire from="(820,480)" to="(820,490)"/>
@@ -567,12 +544,12 @@
     <comp lib="0" loc="(220,520)" name="Pin">
       <a name="appearance" val="NewPins"/>
       <a name="label" val="control_word"/>
-      <a name="width" val="5"/>
+      <a name="width" val="6"/>
     </comp>
     <comp lib="0" loc="(220,520)" name="Splitter">
       <a name="appear" val="right"/>
-      <a name="fanout" val="5"/>
-      <a name="incoming" val="5"/>
+      <a name="fanout" val="6"/>
+      <a name="incoming" val="6"/>
     </comp>
     <comp lib="0" loc="(230,190)" name="Bit Extender">
       <a name="in_width" val="1"/>
@@ -582,20 +559,23 @@
       <a name="in_width" val="1"/>
       <a name="out_width" val="8"/>
     </comp>
-    <comp lib="0" loc="(280,490)" name="Tunnel">
+    <comp lib="0" loc="(280,470)" name="Tunnel">
       <a name="label" val="invert_X"/>
     </comp>
-    <comp lib="0" loc="(280,520)" name="Tunnel">
+    <comp lib="0" loc="(280,500)" name="Tunnel">
       <a name="label" val="invert_Y"/>
     </comp>
-    <comp lib="0" loc="(280,550)" name="Tunnel">
+    <comp lib="0" loc="(280,530)" name="Tunnel">
       <a name="label" val="operation"/>
     </comp>
-    <comp lib="0" loc="(280,580)" name="Tunnel">
+    <comp lib="0" loc="(280,560)" name="Tunnel">
       <a name="label" val="carry_in"/>
     </comp>
-    <comp lib="0" loc="(280,610)" name="Tunnel">
+    <comp lib="0" loc="(280,590)" name="Tunnel">
       <a name="label" val="invert_output"/>
+    </comp>
+    <comp lib="0" loc="(280,620)" name="Tunnel">
+      <a name="label" val="flag_mode"/>
     </comp>
     <comp lib="0" loc="(440,120)" name="Tunnel">
       <a name="facing" val="south"/>
@@ -619,6 +599,12 @@
       <a name="label" val="Z_output"/>
       <a name="type" val="output"/>
       <a name="width" val="8"/>
+    </comp>
+    <comp lib="0" loc="(910,320)" name="Pin">
+      <a name="appearance" val="NewPins"/>
+      <a name="facing" val="west"/>
+      <a name="label" val="Flag_out"/>
+      <a name="type" val="output"/>
     </comp>
     <comp lib="1" loc="(340,150)" name="XOR Gate">
       <a name="width" val="8"/>
@@ -644,28 +630,31 @@
     <wire from="(240,290)" to="(260,290)"/>
     <wire from="(240,530)" to="(250,530)"/>
     <wire from="(240,540)" to="(260,540)"/>
-    <wire from="(240,550)" to="(280,550)"/>
-    <wire from="(240,560)" to="(260,560)"/>
+    <wire from="(240,550)" to="(270,550)"/>
+    <wire from="(240,560)" to="(280,560)"/>
     <wire from="(240,570)" to="(250,570)"/>
+    <wire from="(240,580)" to="(240,620)"/>
+    <wire from="(240,620)" to="(280,620)"/>
     <wire from="(250,170)" to="(250,190)"/>
     <wire from="(250,170)" to="(280,170)"/>
-    <wire from="(250,490)" to="(250,530)"/>
-    <wire from="(250,490)" to="(280,490)"/>
-    <wire from="(250,570)" to="(250,610)"/>
-    <wire from="(250,610)" to="(280,610)"/>
+    <wire from="(250,470)" to="(250,530)"/>
+    <wire from="(250,470)" to="(280,470)"/>
+    <wire from="(250,570)" to="(250,590)"/>
+    <wire from="(250,590)" to="(280,590)"/>
     <wire from="(260,290)" to="(260,310)"/>
     <wire from="(260,310)" to="(280,310)"/>
-    <wire from="(260,520)" to="(260,540)"/>
-    <wire from="(260,520)" to="(280,520)"/>
-    <wire from="(260,560)" to="(260,580)"/>
-    <wire from="(260,580)" to="(280,580)"/>
+    <wire from="(260,500)" to="(260,540)"/>
+    <wire from="(260,500)" to="(280,500)"/>
+    <wire from="(270,530)" to="(270,550)"/>
+    <wire from="(270,530)" to="(280,530)"/>
     <wire from="(340,150)" to="(350,150)"/>
-    <wire from="(340,330)" to="(420,330)"/>
+    <wire from="(340,330)" to="(360,330)"/>
     <wire from="(350,150)" to="(350,290)"/>
+    <wire from="(350,150)" to="(420,150)"/>
     <wire from="(350,290)" to="(420,290)"/>
-    <wire from="(360,150)" to="(420,150)"/>
-    <wire from="(360,170)" to="(360,320)"/>
+    <wire from="(360,170)" to="(360,330)"/>
     <wire from="(360,170)" to="(420,170)"/>
+    <wire from="(360,330)" to="(420,330)"/>
     <wire from="(440,120)" to="(440,140)"/>
     <wire from="(460,160)" to="(500,160)"/>
     <wire from="(470,310)" to="(500,310)"/>
@@ -680,5 +669,29 @@
     <wire from="(760,170)" to="(760,190)"/>
     <wire from="(760,190)" to="(770,190)"/>
     <wire from="(830,210)" to="(880,210)"/>
+  </circuit>
+  <circuit name="main_74">
+    <a name="appearance" val="logisim_evolution"/>
+    <a name="circuit" val="main_74"/>
+    <a name="circuitnamedboxfixedsize" val="true"/>
+    <a name="simulationFrequency" val="1.0"/>
+    <comp lib="0" loc="(100,120)" name="Pin">
+      <a name="appearance" val="NewPins"/>
+      <a name="label" val="Reset"/>
+    </comp>
+    <comp lib="0" loc="(100,80)" name="Clock">
+      <a name="appearance" val="NewPins"/>
+    </comp>
+    <comp lib="0" loc="(140,120)" name="Tunnel">
+      <a name="label" val="Rst"/>
+    </comp>
+    <comp lib="0" loc="(140,80)" name="Tunnel">
+      <a name="label" val="Clk"/>
+    </comp>
+    <comp lib="6" loc="(1010,130)" name="74138"/>
+    <comp lib="6" loc="(1180,130)" name="74138"/>
+    <comp lib="6" loc="(830,130)" name="74138"/>
+    <wire from="(100,120)" to="(140,120)"/>
+    <wire from="(100,80)" to="(140,80)"/>
   </circuit>
 </project>

@@ -20,7 +20,8 @@ class Assembler:
     def __init__(self):
         pass
 
-    def assemble(self, code: str):
+    @staticmethod
+    def assemble(code: str):
         tokens = Lexer.tokenize(code)
         token_stream = TokenStream(tokens)
 
