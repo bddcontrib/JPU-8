@@ -1,25 +1,29 @@
 #include <core.jlib>
 #entrypoint .main
 
-; Skriv ut "Hello World!"
-
+; Skriv ut "Hello World!" på LCDn
 
 .main
-    SYS SDEV [DEVICE_TEXT_ASCII] ; Konfigurera expansionsporten för att använda text
+    MV IM PC-LSB [.config-display]
 
-    MV IM EX [72]  ; H
-    MV IM EX [101] ; e
-    MV IM EX [108] ; l
-    MV IM EX [108] ; l
-    MV IM EX [111] ; o
-    MV IM EX [32]  ; ` `
-    MV IM EX [119] ; W
-    MV IM EX [111] ; o
-    MV IM EX [114] ; r
-    MV IM EX [108] ; l
-    MV IM EX [100] ; d
-    MV IM EX [33]  ; !
-    MV IM EX [10]  ; <ny rad>
+.config-display
+    MV IM LCD-C [0b00111000] ; Konfigurera 8-bitars-läge + 5*8 font
+    MV IM LCD-C [0b00001110] ; Konfigurera display och cursor
+    MV IM LCD-C [0b00000110] ; Konfigurera cursor shift
+
+.write-hello-world
+    MV IM LCD-D [0x48] ; H
+    MV IM LCD-D [0x65] ; e
+    MV IM LCD-D [0x6B] ; l
+    MV IM LCD-D [0x6B] ; l
+    MV IM LCD-D [0x6F] ; o
+    MV IM LCD-D [0x20] ;
+    MV IM LCD-D [0x57] ; W
+    MV IM LCD-D [0x6F] ; o
+    MV IM LCD-D [0x72] ; r
+    MV IM LCD-D [0x6B] ; l
+    MV IM LCD-D [0x64] ; d
+    MV IM LCD-D [0x21] ; !
 
 .end
     SYS HLT
