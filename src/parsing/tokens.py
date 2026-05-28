@@ -19,6 +19,8 @@ class TokenType(Enum):
     COMMA = auto()
     DOT = auto()
 
+    EOL = auto()
+
 class OperandType(Enum):
     PLUS = auto()
     MINUS = auto()
@@ -42,10 +44,10 @@ class KeywordType(Enum):
     FUNCTION = auto()
     RETURN = auto()
 
+    CN_INCLUDE = auto()
     CN_DEFINE = auto()
     CN_MACRO = auto()
     CN_ENTRYPOINT = auto()
-    CN_SETUPPOINT = auto()
 
 class LiteralType(Enum):
     STRING = auto()

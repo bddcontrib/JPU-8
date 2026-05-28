@@ -11,6 +11,9 @@ class TokenStream:
             raise StopIteration
         return self.tokens[self.pointer]
 
+    def extend_head(self, tokens: list[Token]) -> None:
+        self.tokens = self.tokens[:self.pointer] + tokens + self.tokens[self.pointer:]
+
     def next(self) -> Token:
         return self.__next__()
 
@@ -26,6 +29,7 @@ class TokenStream:
         for arg in args:
             assert isinstance(arg, dict)
             if next_token.match(**arg):
+                assert 0 <= alternative < len(args)
                 return next_token, alternative
             alternative += 1
 

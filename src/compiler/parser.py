@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 from typing import Any
 from enum import Enum, auto
 
-from parsing.tokens import Token, TokenType, OperandType, KeywordType, LiteralType
+from src.parsing.tokens import Token, TokenType, OperandType, KeywordType, LiteralType
 from src.compiler.prettyprint import *
 
 

@@ -1,6 +1,10 @@
+from logging import Logger
+
 from src.parsing.tokens import *
 from src.parsing.stream_utils import TokenStream
-from src.parsing.lexer import Lexer
+from src.parsing.lexer import JSMLexer
+
+
 
 class WTFError(Exception):
     def __init__(self, message: str):
@@ -17,28 +21,44 @@ class InstructionPair:
         self.flg_unset: Instruction = flg_unset_instruction
 
 class Assembler:
-    def __init__(self):
-        pass
+    # TODO: don't hardcode
+    BASE_LIB_PATH = "./src/assembler/lib/"
 
-    @staticmethod
-    def assemble(code: str):
-        tokens = Lexer.tokenize(code)
+    def __init__(self, logger: Logger):
+        self.logger = logger
+        self.dependencies = []
+        self.entrypoint = None
+
+    def assemble(self, code: str):
+        lexer = JSMLexer()
+        tokens = lexer.tokenize(code)
         token_stream = TokenStream(tokens)
+        print(tokens)
 
         while not token_stream.is_empty():
-            token, option = token_stream.expect({"token_type": TokenType.DOT},
-                                                {"token_type": TokenType.HASHTAG},
-                                                {"token_type": TokenType.IDENTIFIER},
-                                                {"token_type": TokenType.LITERAL, "subtype": LiteralType.NUMBER})
+            r = token_stream.match_one(token_type=TokenType.HASHTAG)
+            if r is not None:
+                token, option = token_stream.expect(
+                    {"token_type": TokenType.KEYWORD, "subtype": KeywordType.CN_INCLUDE},
+                    {"token_type": TokenType.KEYWORD, "subtype": KeywordType.CN_ENTRYPOINT},
+                    {"token_type": TokenType.KEYWORD, "subtype": KeywordType.CN_MACRO},
+                    {"token_type": TokenType.KEYWORD, "subtype": KeywordType.CN_DEFINE},
+                )
 
-            match option:
-                case 0: # <dot>: section
-                    pass
-                case 1: # #compiler-annotation
-                    pass
-                case 2: # identifier
-                    pass
-                case 3: # literal number
-                    pass
-                case _:
-                    raise WTFError("Huh?")
+                match option:
+                    case 0: # include
+                        lib = token_stream.expect_one(token_type=TokenType.IDENTIFIER)
+                        with open(self.BASE_LIB_PATH + lib.value, "r" ) as f:
+                            new_code = f.read()
+                            new_tokens = lexer.tokenize(new_code)
+                            token_stream.extend_head(new_tokens)
+                        token_stream.expect_one(token_type=TokenType.EOL)
+                    case 1: # entrypoint
+                        tok = token_stream.expect(
+                            {"token_type": TokenType.IDENTIFIER},
+                            {"token_type": TokenType.LITERAL, "subtype": LiteralType.NUMBER}
+                        )
+                    case 2: # macro
+                        pass
+                    case 3: # define
+                        pass

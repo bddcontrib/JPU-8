@@ -20,6 +20,7 @@ class ParseableItems(IntEnum):
     ASSEMBLE = 11
     SAVE = 19
     RUN = 20
+    DUMP = 30
 
 if __name__ == "__main__":
     script, arguments = argv[0], argv[1:].copy()
@@ -70,6 +71,9 @@ if __name__ == "__main__":
                     tasks.append(ParseableItems.RUN)
                     debug = True
 
+                case "--dump":
+                    tasks.append(ParseableItems.DUMP)
+
                 case "-c" | "--compile":
                     tasks.append(ParseableItems.COMPILE)
 
@@ -86,6 +90,7 @@ if __name__ == "__main__":
                     logger.setLevel(logging.WARNING)
 
                 case "--help":
+                    # TODO: improve
                     print(f"JPU-8 compiler, assembler and simulator version {VERSION}")
                     print(f"Usage: python[3] {script} [options] input_file")
                     print(" -o | --out | --output | --output-file <output_file> : configure the output file path")
@@ -93,6 +98,7 @@ if __name__ == "__main__":
                     print(" -r | --run | --run-file | -s | --simulate : run the file with the simulator")
                     print(" -l | --log | --log-file <output_file> : configure the log file path")
                     print(" -v | --verbose | --debug : set the logging level to `debug`")
+                    print(" --dump : dump the output to the terminal")
                     print(" --info : set the logging level to `info` (default)")
                     print(" --warning : set the logging level to `warning`")
                     exit(0)
@@ -144,8 +150,8 @@ if __name__ == "__main__":
 
             case ParseableItems.ASSEMBLE:
                 logger.info(" - Assembling...")
-                asm = Assembler(current, logger)
-                current = asm.assemble()
+                asm = Assembler(logger)
+                current = asm.assemble(current)
                 logger.debug("  Done assembling")
 
             case ParseableItems.SAVE:
@@ -170,6 +176,9 @@ if __name__ == "__main__":
                 current = None
                 print()
                 logger.info("   Done executing")
+
+            case ParseableItems.DUMP:
+                print(current)
 
 
 
